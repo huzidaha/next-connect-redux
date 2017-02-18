@@ -76,7 +76,7 @@ class Page extends React.Component {
 
 export default nextConnect((state) => state)(Counter)
 ```
-### Asynchronously dispatch action
+### Asynchronously dispatch an action
 Don't worry that you want to dispatch an async action in `getInitialProps`, it's surprisingly easy:
 
 ```javascript

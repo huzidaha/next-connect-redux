@@ -76,8 +76,34 @@ class Page extends React.Component {
 
 export default nextConnect((state) => state)(Counter)
 ```
+### Asynchronously dispatch action
+Don't worry that you want to dispatch an async action in `getInitialProps`, it's surprisingly easy:
 
-See more examples [here](https://github.com/zeit/next.js/tree/master/examples/with-redux).
+```javascript
+import React from 'react'
+import { nextConnect } from '../store'
+
+class Page extends React.Component {
+  static async getInitialProps ({ store }) {
+    await store.dispatch(someAsyncAction())
+    return {}
+  }
+
+  render () {
+    return (
+      <h1>{this.props.title}</h1>
+    )
+  }
+}
+
+export default nextConnect((state) => state)(Counter)
+```
+
+## Example
+
+See full example [here](https://github.com/zeit/next.js/tree/master/examples/with-redux).
+
+More examples: TODO.
 
 ## License
 MIT License

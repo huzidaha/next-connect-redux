@@ -1,6 +1,6 @@
 {
   "name": "next-connect-redux",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Connect next.js to redux",
   "main": "dist/index.js",
   "scripts": {

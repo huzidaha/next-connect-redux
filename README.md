@@ -21,7 +21,7 @@ export const initStore = (initialState) => {
 }
 ```
 
-And pass this `initStore` function to `next-connect-redux` and it will return a wrapper function called `nextConnect`.
+And pass `initStore` function to `next-connect-redux` and it will return a wrapper function called `nextConnect`.
 
 ```javascript
 import nextConnectRedux from 'next-connect-redux'
@@ -35,7 +35,7 @@ export const initStore = (initialState) => {
 export const nextConnect = nextConnectRedux(initStore)
 ```
 
-Use this `nextConnect` function to wrap every page component inside `/pages`, take `index.js` for example:
+Use `nextConnect` function to wrap every page component inside `/pages`, take `index.js` for example:
 
 ```javascript
 import React from 'react'
@@ -52,9 +52,9 @@ class Page extends React.Component {
 export default nextConnect((state) => state)(Counter)
 ```
 
-Just use `nextConnect` like `connect`. It connects the page component to redux. In addition, it wraps page component with `react-redux`'s `<Provider />`, this will pass down the `store` to child components of the component tree. For safety considerations, you should wrap every page component with `nextConnect`. For normal components, you just need the `connect` provided by `react-redux` instead of `nextConnect`.
+Just use `nextConnect` like you're using `connect`. It connects the page component to redux. In addition, it wraps page component with `react-redux`'s `<Provider />`, this will pass down the `store` to child components of the component tree. For safety considerations, you should wrap every page component with `nextConnect`. For normal components, you just need the `connect` provided by `react-redux` instead of `nextConnect`.
 
-### Initial Store
+### Initial store
 You can use `store.dispatch` inside `getInitialProps` to dispatch some actions for initialization purpose.
 
 ```javascript
@@ -64,7 +64,7 @@ import { nextConnect } from '../store'
 class Page extends React.Component {
   static getInitialProps ({ store }) {
     store.dispatch({ type: 'SET_PAGE_TITLE', title: 'Index Page' })
-    return {  }
+    return {}
   }
 
   render () {
@@ -76,6 +76,8 @@ class Page extends React.Component {
 
 export default nextConnect((state) => state)(Counter)
 ```
+
+See more examples [here](https://github.com/zeit/next.js/tree/master/examples/with-redux).
 
 ## License
 MIT License

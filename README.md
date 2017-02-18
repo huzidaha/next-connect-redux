@@ -1,5 +1,5 @@
 # next-connect-redux
-Connect Next.js to Redux
+Connect Next.js to Redux.
 
 ## How to use
 

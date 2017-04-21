@@ -44,10 +44,11 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = null;
-
 var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
   var _class, _temp;
+
+  // mutiple stores supported in closure
+  var store = null;
 
   return _temp = _class = function (_Component) {
     (0, _inherits3.default)(_class, _Component);
@@ -64,7 +65,7 @@ var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
                   isServer = !!req;
 
                   if (isServer && typeof window === 'undefined') {
-                    store = createStore({});
+                    store = createStore();
                   }
                   ctx.store = store;
                   ctx.isServer = isServer;

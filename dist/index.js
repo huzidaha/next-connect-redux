@@ -61,7 +61,7 @@ var wrapWithProvider = function wrapWithProvider(createStore, PageComponent, cac
                   req = ctx.req;
                   isServer = !!req;
 
-                  if (isServer && typeof window === 'undefined') {
+                  if (!cache.store) {
                     cache.store = createStore();
                   }
                   ctx.store = cache.store;

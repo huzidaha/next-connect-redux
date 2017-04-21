@@ -38,6 +38,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require('react-redux');
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var store = null;
@@ -126,14 +130,14 @@ var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
     }]);
     return _class;
   }(_react.Component), _class.propTypes = {
-    initialState: _react.PropTypes.object
+    initialState: _propTypes2.default.object
   }, _temp;
 };
 
 exports.default = function (createStore) {
-  return function (mapStateToProps, mapDispatchToProps) {
+  return function (mapStateToProps, mapDispatchToProps, mergeProps, options) {
     return function (PageComponent) {
-      PageComponent = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PageComponent);
+      PageComponent = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps, mergeProps, options)(PageComponent);
       return wrapWithProvider(createStore, PageComponent);
     };
   };

@@ -10,7 +10,7 @@ Connect Next.js to Redux.
 
 ### Usage
 
-Create `initStore` function which only accepts `initialState`.
+Create an `initStore` function which only accepts `initialState`, and returns a store by `createStore` function.
 
 ```javascript
 import { createStore } from 'redux'
@@ -21,7 +21,7 @@ export const initStore = (initialState) => {
 }
 ```
 
-And pass `initStore` function to `next-connect-redux` and it will return a wrapper function called `nextConnect`.
+And then pass `initStore` function to `next-connect-redux` and it will return a wrapper function called `nextConnect`.
 
 ```javascript
 import nextConnectRedux from 'next-connect-redux'

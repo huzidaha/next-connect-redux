@@ -44,11 +44,8 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
+var wrapWithProvider = function wrapWithProvider(createStore, PageComponent, cache) {
   var _class, _temp;
-
-  // mutiple stores supported in closure
-  var store = null;
 
   return _temp = _class = function (_Component) {
     (0, _inherits3.default)(_class, _Component);
@@ -65,9 +62,9 @@ var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
                   isServer = !!req;
 
                   if (isServer && typeof window === 'undefined') {
-                    store = createStore();
+                    cache.store = createStore();
                   }
-                  ctx.store = store;
+                  ctx.store = cache.store;
                   ctx.isServer = isServer;
 
                   if (!PageComponent.getInitialProps) {
@@ -89,7 +86,7 @@ var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
                 case 12:
                   props = _context.t0;
 
-                  props.initialState = store.getState();
+                  props.initialState = cache.store.getState();
                   return _context.abrupt('return', props);
 
                 case 15:
@@ -113,8 +110,8 @@ var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
 
       var _this = (0, _possibleConstructorReturn3.default)(this, (_class.__proto__ || (0, _getPrototypeOf2.default)(_class)).call(this, props));
 
-      if (!store) {
-        store = createStore(props.initialState);
+      if (!cache.store) {
+        cache.store = createStore(props.initialState);
       }
       return _this;
     }
@@ -124,7 +121,7 @@ var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
       value: function render() {
         return _react2.default.createElement(
           _reactRedux.Provider,
-          { store: store },
+          { store: cache.store },
           _react2.default.createElement(PageComponent, this.props)
         );
       }
@@ -136,10 +133,15 @@ var wrapWithProvider = function wrapWithProvider(createStore, PageComponent) {
 };
 
 exports.default = function (createStore) {
-  return function (mapStateToProps, mapDispatchToProps, mergeProps, options) {
+  var cache = {};
+  return function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
     return function (PageComponent) {
-      PageComponent = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps, mergeProps, options)(PageComponent);
-      return wrapWithProvider(createStore, PageComponent);
+      PageComponent = _reactRedux.connect.apply(undefined, args)(PageComponent);
+      return wrapWithProvider(createStore, PageComponent, cache);
     };
   };
 };
